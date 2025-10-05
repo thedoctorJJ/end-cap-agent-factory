@@ -12,6 +12,10 @@ import subprocess
 from typing import Dict, Any, List
 import asyncio
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -132,11 +136,20 @@ class EndCapAgentFactoryMCPServer:
                 'gitignore_template': 'Python'
             }
             
+            # Try organization first, fallback to user
             response = requests.post(
                 f'https://api.github.com/orgs/{self.github_org}/repos',
                 headers=headers,
                 json=data
             )
+            
+            # If organization fails, try user account
+            if response.status_code == 404:
+                response = requests.post(
+                    'https://api.github.com/user/repos',
+                    headers=headers,
+                    json=data
+                )
             
             if response.status_code == 201:
                 repo_data = response.json()

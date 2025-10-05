@@ -77,15 +77,19 @@ async def get_devin_prompt(task_id: str):
         "formatted_for_copy": format_for_devin_copy(task.devin_prompt)
     }
 
+class TaskCompletionRequest(BaseModel):
+    agent_code: str
+    deployment_method: Optional[str] = "mcp_automatic"
+
 @router.put("/devin/tasks/{task_id}/complete")
-async def complete_devin_task(task_id: str, agent_code: str):
+async def complete_devin_task(task_id: str, request: TaskCompletionRequest):
     """Mark a Devin AI task as completed with the generated code"""
     if task_id not in devin_tasks_db:
         raise HTTPException(status_code=404, detail="Devin task not found")
     
     task = devin_tasks_db[task_id]
     task.status = "completed"
-    task.agent_code = agent_code
+    task.agent_code = request.agent_code
     task.updated_at = datetime.utcnow()
     
     devin_tasks_db[task_id] = task
@@ -162,9 +166,9 @@ Create the following tables in Supabase:
 
 ### 6. **API Endpoints**
 Create FastAPI endpoints:
-- `POST /api/v1/agents/{agent_id}/execute` - Execute agent
-- `GET /api/v1/agents/{agent_id}/status` - Get agent status
-- `GET /api/v1/agents/{agent_id}/metrics` - Get agent metrics
+- `POST /api/v1/agents/{{agent_id}}/execute` - Execute agent
+- `GET /api/v1/agents/{{agent_id}}/status` - Get agent status
+- `GET /api/v1/agents/{{agent_id}}/metrics` - Get agent metrics
 
 ## Expected Outcome
 After completion, the agent should be:

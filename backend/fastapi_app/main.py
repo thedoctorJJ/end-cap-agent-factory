@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import routers
-from routers import agents, prds, health, devin_integration
+from .routers import agents, prds, health, devin_integration
 
 app = FastAPI(
     title="END_CAP Agent Factory",
