@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Import routers
-from routers import agents, prds, health
+from routers import agents, prds, health, devin_integration
 
 app = FastAPI(
     title="END_CAP Agent Factory",
@@ -31,6 +31,7 @@ app.add_middleware(
 app.include_router(health.router, prefix="/api/v1", tags=["health"])
 app.include_router(agents.router, prefix="/api/v1", tags=["agents"])
 app.include_router(prds.router, prefix="/api/v1", tags=["prds"])
+app.include_router(devin_integration.router, prefix="/api/v1", tags=["devin"])
 
 @app.get("/")
 async def root():

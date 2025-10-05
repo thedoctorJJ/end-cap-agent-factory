@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { Plus, Bot, FileText, Activity, Github } from 'lucide-react'
+import DevinIntegration from '@/components/DevinIntegration'
 
 interface Agent {
   id: string
@@ -145,6 +146,7 @@ export default function Dashboard() {
         <TabsList>
           <TabsTrigger value="agents">Agents</TabsTrigger>
           <TabsTrigger value="prds">PRDs</TabsTrigger>
+          <TabsTrigger value="devin">Devin AI</TabsTrigger>
           <TabsTrigger value="create">Create New</TabsTrigger>
         </TabsList>
 
@@ -245,6 +247,14 @@ export default function Dashboard() {
               ))
             )}
           </div>
+        </TabsContent>
+
+        <TabsContent value="devin" className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold">Devin AI Integration</h2>
+            <Badge variant="outline">Copy-Paste Workflow</Badge>
+          </div>
+          <DevinIntegration />
         </TabsContent>
 
         <TabsContent value="create" className="space-y-4">

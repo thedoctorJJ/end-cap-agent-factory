@@ -42,12 +42,30 @@ yarn-error.log*
 out/
 build/
 
-# Environment variables
+# Environment variables and sensitive files
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Credential files
+*.pem
+*-key.json
+*-private-key.*
+*service-account*.json
+*credentials*.json
+
+# Backup files with sensitive data
+.env.backup*
+*.backup
+*backup*
+
+# API keys and secrets
+*api-key*
+*secret*
+*token*
 
 # IDE
 .vscode/

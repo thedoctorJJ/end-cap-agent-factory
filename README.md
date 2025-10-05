@@ -72,6 +72,48 @@ Your END_CAP Agent Factory is **fully configured** and ready for development:
 
 **Start coding immediately** - no additional setup required!
 
+## 🔒 Security & Credentials Management
+
+### **Important Security Notes**
+- **Never commit sensitive files** to version control
+- **All credential files are automatically ignored** by git
+- **Use environment variables** for all sensitive data
+- **Backup files with credentials are excluded** from commits
+
+### **Protected File Patterns**
+The following file patterns are automatically excluded from git:
+- `.env*` - All environment files
+- `*.pem` - Private key files
+- `*-key.json` - Service account keys
+- `*service-account*.json` - Google Cloud credentials
+- `.env.backup*` - Backup files with sensitive data
+- `*api-key*`, `*secret*`, `*token*` - Any files with sensitive names
+
+### **Safe Development Workflow**
+1. **Copy `env.example` to `.env`** - This is safe to do
+2. **Add your credentials to `.env`** - This file is gitignored
+3. **Run configuration scripts** - They create backups automatically
+4. **Use secure commit tools** - Prevents accidental credential commits
+5. **Commit only code changes** - Credentials stay local
+
+### **Security Tools**
+- **Pre-commit hook**: Automatically prevents sensitive files from being committed
+- **Secure commit script**: `./scripts/secure-commit.sh "Your message"`
+- **Install security hook**: `./scripts/install-pre-commit-hook.sh`
+
+### **If You Accidentally Commit Sensitive Files**
+```bash
+# Remove from git history (if caught early)
+git reset --soft HEAD~1
+git reset HEAD <sensitive-file>
+git commit -m "Your commit message"
+
+# Or use git filter-branch for deeper cleanup
+git filter-branch --force --index-filter \
+  'git rm --cached --ignore-unmatch <sensitive-file>' \
+  --prune-empty --tag-name-filter cat -- --all
+```
+
 ## 🏗️ Architecture
 
 ### Backend (FastAPI)
