@@ -14,7 +14,8 @@ SENSITIVE_PATTERNS=(
     "\.pem$"
     "-key\.json$"
     "service-account.*\.json$"
-    "\.env"
+    "\.env$"
+    "\.env\."
     "backup"
     "api-key"
     "secret"
@@ -26,7 +27,7 @@ SENSITIVE_PATTERNS=(
 SENSITIVE_FOUND=false
 
 for pattern in "${SENSITIVE_PATTERNS[@]}"; do
-    if git diff --cached --name-only | grep -E "$pattern"; then
+    if git diff --cached --name-only | grep -E "$pattern" >/dev/null 2>&1; then
         echo "❌ Found sensitive file matching pattern: $pattern"
         SENSITIVE_FOUND=true
     fi
@@ -36,10 +37,10 @@ if [ "$SENSITIVE_FOUND" = true ]; then
     echo ""
     echo "🚨 SECURITY ALERT: Sensitive files detected in staging area!"
     echo ""
-    echo "The following files contain sensitive information and should NOT be committed:"
-    for pattern in "${SENSITIVE_PATTERNS[@]}"; do
-        git diff --cached --name-only | grep -E "$pattern" || true
-    done
+echo "The following files contain sensitive information and should NOT be committed:"
+for pattern in "${SENSITIVE_PATTERNS[@]}"; do
+    git diff --cached --name-only | grep -E "$pattern" 2>/dev/null || true
+done
     echo ""
     echo "🔧 To fix this:"
     echo "1. Remove sensitive files from staging:"
