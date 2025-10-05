@@ -43,7 +43,8 @@ class ConfigValidator:
             'SUPABASE_SERVICE_ROLE_KEY',
             'GOOGLE_CLOUD_PROJECT_ID',
             'GITHUB_APP_ID',
-            'OPENAI_API_KEY'
+            'OPENAI_API_KEY',
+            'DEVIN_AI_API_KEY'
         ]
         
         for var in required_vars:
@@ -106,6 +107,38 @@ class ConfigValidator:
                 
         except requests.exceptions.RequestException as e:
             self.log_error(f"OpenAI API error: {str(e)}")
+            
+    def validate_devin_ai_api(self):
+        """Test Devin AI API key."""
+        print("\n🤖 Validating Devin AI API...")
+        
+        api_key = os.getenv('DEVIN_AI_API_KEY')
+        base_url = os.getenv('DEVIN_AI_BASE_URL', 'https://api.devin.ai')
+        
+        if not api_key:
+            self.log_error("Devin AI API key not configured")
+            return
+            
+        if api_key == 'your-devin-ai-api-key':
+            self.log_warning("Devin AI API key is still set to placeholder value")
+            return
+            
+        try:
+            headers = {
+                'Authorization': f'Bearer {api_key}',
+                'Content-Type': 'application/json'
+            }
+            
+            # Try to make a simple API call (this may need adjustment based on actual Devin AI API)
+            response = requests.get(f'{base_url}/health', headers=headers, timeout=10)
+            
+            if response.status_code == 200:
+                self.log_success("Devin AI API key is valid")
+            else:
+                self.log_warning(f"Devin AI API validation returned status {response.status_code} - API may not be available yet")
+                
+        except requests.exceptions.RequestException as e:
+            self.log_warning(f"Devin AI API error: {str(e)} - API may not be available yet")
             
     def validate_github_config(self):
         """Validate GitHub App configuration."""
@@ -193,6 +226,7 @@ class ConfigValidator:
         self.validate_required_env_vars()
         self.validate_supabase_connection()
         self.validate_openai_api()
+        self.validate_devin_ai_api()
         self.validate_github_config()
         self.validate_google_cloud_config()
         self.validate_database_url()

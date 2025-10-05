@@ -9,6 +9,7 @@ This guide walks you through setting up all the necessary accounts, APIs, and MC
 - [ ] **Google Cloud Platform** - Hosting, Storage, Secret Manager
 - [ ] **GitHub** - Repository management, GitHub App
 - [ ] **OpenAI** - GPT-5, Whisper for voice processing
+- [ ] **Devin AI** - Autonomous agent orchestration and code generation
 
 ### ✅ Optional/Advanced Services
 - [ ] **Sentry** - Error monitoring and logging
@@ -211,7 +212,35 @@ Set these permissions:
 
 ---
 
-## 🔧 5. MCP Server Setup
+## 🤖 5. Devin AI Setup
+
+### Create Devin AI Account
+1. **Visit**: [devin.ai](https://devin.ai) or [cognition.ai](https://cognition.ai)
+2. **Request Access**: Sign up for the waitlist or request early access
+3. **Wait for Approval**: Devin AI is currently in private beta
+
+### Get API Key (if available)
+1. **Go to your Devin AI dashboard** (once you have access)
+2. **Look for API settings** or **Developer section**
+3. **Generate API key** (if available)
+
+### Devin AI Configuration
+```env
+DEVIN_AI_API_KEY=your-devin-ai-api-key
+DEVIN_AI_BASE_URL=https://api.devin.ai
+DEVIN_AI_MODEL=devin-ai
+DEVIN_AI_TIMEOUT=300
+```
+
+### Note on Devin AI Access
+- **Currently in private beta** - limited access
+- **API may not be publicly available yet**
+- **Alternative**: Use other AI orchestration tools until Devin AI is available
+- **Future integration**: Will be fully integrated once API is available
+
+---
+
+## 🔧 6. MCP Server Setup
 
 ### GitHub MCP Service
 The MCP (Model Context Protocol) service will handle GitHub repository creation.
