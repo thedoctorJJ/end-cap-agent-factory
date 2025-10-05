@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Modular AI Agent Platform',
+  title: 'END_CAP Agent Factory',
   description: 'A repeatable, voice-first, AI-driven platform for creating modular agents',
 }
 

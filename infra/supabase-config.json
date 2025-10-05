@@ -1,6 +1,6 @@
 {
-  "project_id": "modular-ai-agent-platform",
-  "name": "Modular AI Agent Platform",
+  "project_id": "end-cap-agent-factory",
+  "name": "END_CAP Agent Factory",
   "organization_id": "your-org-id",
   "database": {
     "host": "db.your-project.supabase.co",

@@ -1,7 +1,7 @@
 # DevOps & Deployment Flow
 
 ## Overview
-This document describes the deployment pipeline and CI/CD workflow for the Modular AI Agent Platform.
+This document describes the deployment pipeline and CI/CD workflow for the END_CAP Agent Factory.
 
 ## Local Development
 - Backend: `uvicorn main:app --reload`

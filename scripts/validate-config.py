@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Configuration validation script for Modular AI Agent Platform.
+Configuration validation script for END_CAP Agent Factory.
 This script validates all API keys, connections, and configurations.
 """
 
@@ -187,7 +187,7 @@ class ConfigValidator:
             
     def run_all_validations(self):
         """Run all validation checks."""
-        print("🚀 Starting Configuration Validation for Modular AI Agent Platform")
+        print("🚀 Starting Configuration Validation for END_CAP Agent Factory")
         print("=" * 70)
         
         self.validate_required_env_vars()

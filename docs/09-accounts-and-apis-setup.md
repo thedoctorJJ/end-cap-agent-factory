@@ -1,6 +1,6 @@
 # Accounts and APIs Setup Guide
 
-This guide walks you through setting up all the necessary accounts, APIs, and MCP servers for the Modular AI Agent Platform.
+This guide walks you through setting up all the necessary accounts, APIs, and MCP servers for the END_CAP Agent Factory.
 
 ## 📋 Required Accounts & Services
 
@@ -25,7 +25,7 @@ This guide walks you through setting up all the necessary accounts, APIs, and MC
 2. Sign up/Login with GitHub
 3. Click "New Project"
 4. Choose organization and enter:
-   - **Name**: `modular-ai-agent-platform`
+   - **Name**: `end-cap-agent-factory`
    - **Database Password**: Generate strong password (save it!)
    - **Region**: Choose closest to your users
 5. Wait for project creation (2-3 minutes)
@@ -110,7 +110,7 @@ CREATE INDEX idx_agent_executions_agent_id ON agent_executions(agent_id);
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
 2. Click "Select a project" → "New Project"
 3. Enter:
-   - **Project name**: `modular-ai-agent-platform`
+   - **Project name**: `end-cap-agent-factory`
    - **Organization**: Select your org (if applicable)
 4. Click "Create"
 

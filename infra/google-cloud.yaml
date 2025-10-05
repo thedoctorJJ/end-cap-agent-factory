@@ -1,10 +1,10 @@
-# Google Cloud Run configuration for Modular AI Agent Platform
+# Google Cloud Run configuration for END_CAP Agent Factory
 
 # Backend Service
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: modular-ai-backend
+  name: end-cap-agent-factory-backend
   annotations:
     run.googleapis.com/ingress: all
     run.googleapis.com/execution-environment: gen2
@@ -20,7 +20,7 @@ spec:
       containerConcurrency: 100
       timeoutSeconds: 300
       containers:
-      - image: gcr.io/PROJECT_ID/modular-ai-backend:latest
+        - image: gcr.io/PROJECT_ID/end-cap-agent-factory-backend:latest
         ports:
         - containerPort: 8000
         env:
@@ -54,7 +54,7 @@ spec:
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: modular-ai-frontend
+  name: end-cap-agent-factory-frontend
   annotations:
     run.googleapis.com/ingress: all
     run.googleapis.com/execution-environment: gen2
@@ -69,12 +69,12 @@ spec:
       containerConcurrency: 100
       timeoutSeconds: 300
       containers:
-      - image: gcr.io/PROJECT_ID/modular-ai-frontend:latest
+        - image: gcr.io/PROJECT_ID/end-cap-agent-factory-frontend:latest
         ports:
         - containerPort: 3000
         env:
         - name: NEXT_PUBLIC_API_URL
-          value: "https://modular-ai-backend-xxxxx-uc.a.run.app"
+          value: "https://end-cap-agent-factory-backend-xxxxx-uc.a.run.app"
         resources:
           limits:
             cpu: "1"

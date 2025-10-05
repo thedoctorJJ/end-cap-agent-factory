@@ -1,6 +1,6 @@
 # Infrastructure Configuration
 
-This directory contains all infrastructure configuration files for the Modular AI Agent Platform.
+This directory contains all infrastructure configuration files for the END_CAP Agent Factory.
 
 ## Files
 

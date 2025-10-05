@@ -1,12 +1,12 @@
-# Modular AI Agent Platform — Infrastructure Blueprint
+# END_CAP Agent Factory — Infrastructure Blueprint
 
 ## Overview
-The Modular AI Agent Platform is a repeatable, modular architecture that allows the creation of AI agents, each with its own module and attached tools.  
+The END_CAP Agent Factory is a repeatable, modular architecture that allows the creation of AI agents, each with its own module and attached tools.  
 Every component is designed to be reusable and scalable, enabling rapid deployment of new agents without rebuilding the core infrastructure.
 
 ## Folder Structure
 ```
-/modular-ai-agent-platform
+/end-cap-agent-factory
 │
 ├── /docs
 ├── /backend

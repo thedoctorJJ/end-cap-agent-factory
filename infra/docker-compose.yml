@@ -34,7 +34,7 @@ services:
   postgres:
     image: postgres:15
     environment:
-      - POSTGRES_DB=modular_ai_platform
+      - POSTGRES_DB=end_cap_agent_factory
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:

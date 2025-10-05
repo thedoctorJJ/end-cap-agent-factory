@@ -1,4 +1,4 @@
-# 🚀 Setup Checklist for Modular AI Agent Platform
+# 🚀 Setup Checklist for END_CAP Agent Factory
 
 Use this checklist to ensure you have all accounts and APIs properly configured.
 
@@ -6,14 +6,14 @@ Use this checklist to ensure you have all accounts and APIs properly configured.
 
 ### ✅ Core Services
 - [ ] **Supabase Account**
-  - [ ] Create project: `modular-ai-agent-platform`
+  - [ ] Create project: `end-cap-agent-factory`
   - [ ] Get API keys (URL, anon key, service role key)
   - [ ] Set up database schema
   - [ ] Configure authentication
   - [ ] Create storage buckets
 
 - [ ] **Google Cloud Platform**
-  - [ ] Create project: `modular-ai-agent-platform`
+  - [ ] Create project: `end-cap-agent-factory`
   - [ ] Enable required APIs (Cloud Run, Cloud Build, Secret Manager)
   - [ ] Create service account with proper permissions
   - [ ] Download service account JSON key

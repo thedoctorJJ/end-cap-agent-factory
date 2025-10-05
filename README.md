@@ -1,6 +1,6 @@
-# Modular AI Agent Platform
+# END_CAP Agent Factory
 
-Welcome to the **Modular AI Agent Platform** — a repeatable, voice-first, AI-driven platform for creating modular agents with fully automated orchestration and deployment.
+Welcome to the **END_CAP Agent Factory** — a repeatable, voice-first, AI-driven platform for creating modular agents with fully automated orchestration and deployment.
 
 This repository contains all core infrastructure, libraries, and documentation to build, orchestrate, and deploy AI agents efficiently.
 
@@ -65,7 +65,7 @@ npm run dev
 
 ## 🎉 **Ready to Go!**
 
-Your platform is **fully configured** and ready for development:
+Your END_CAP Agent Factory is **fully configured** and ready for development:
 - ✅ **All APIs configured** (Supabase, OpenAI, Google Cloud, GitHub)
 - ✅ **Configuration validated** (15/15 checks passing)
 - ✅ **Development environment ready**

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Modular AI Agent Platform - Development Setup Script
+# END_CAP Agent Factory - Development Setup Script
 
 set -e
 
-echo "🚀 Setting up Modular AI Agent Platform for development..."
+echo "🚀 Setting up END_CAP Agent Factory for development..."
 
 # Check if Python 3.11+ is installed
 if ! command -v python3 &> /dev/null; then

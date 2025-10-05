@@ -11,7 +11,7 @@ load_dotenv()
 from routers import agents, prds, health
 
 app = FastAPI(
-    title="Modular AI Agent Platform",
+    title="END_CAP Agent Factory",
     description="A repeatable, voice-first, AI-driven platform for creating modular agents",
     version="1.0.0",
     docs_url="/docs",
@@ -35,7 +35,7 @@ app.include_router(prds.router, prefix="/api/v1", tags=["prds"])
 @app.get("/")
 async def root():
     return {
-        "message": "Welcome to the Modular AI Agent Platform",
+        "message": "Welcome to the END_CAP Agent Factory",
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/api/v1/health"
