@@ -48,43 +48,172 @@ class EndCapAgentFactoryMCPServer:
         try:
             method = request.get('method')
             params = request.get('params', {})
+            request_id = request.get('id')
             
-            if method == 'create_agent':
-                return await self.create_agent(params)
-            elif method == 'deploy_agent':
-                return await self.deploy_agent(params)
-            elif method == 'setup_database':
-                return await self.setup_database(params)
-            elif method == 'create_repository':
-                return await self.create_repository(params)
-            elif method == 'get_repository_info':
-                return await self.get_repository_info(params)
-            elif method == 'create_prd_from_conversation':
-                return await self.create_prd_from_conversation(params)
-            elif method == 'deliver_prd_to_endcap':
-                return await self.deliver_prd_to_endcap(params)
-            elif method == 'trigger_devin_workflow':
-                return await self.trigger_devin_workflow(params)
-            elif method == 'get_endcap_status':
-                return await self.get_endcap_status()
+            # Handle MCP protocol methods
+            if method == 'tools/list':
+                return {
+                    'jsonrpc': '2.0',
+                    'id': request_id,
+                    'result': {
+                        'tools': [
+                            {
+                                'name': 'create_agent',
+                                'description': 'Create a new AI agent with specified configuration',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'name': {'type': 'string', 'description': 'Agent name'},
+                                        'description': {'type': 'string', 'description': 'Agent description'},
+                                        'type': {'type': 'string', 'description': 'Agent type'}
+                                    },
+                                    'required': ['name', 'description', 'type']
+                                }
+                            },
+                            {
+                                'name': 'deploy_agent',
+                                'description': 'Deploy an agent to production environment',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'agent_id': {'type': 'string', 'description': 'Agent ID to deploy'},
+                                        'environment': {'type': 'string', 'description': 'Deployment environment'}
+                                    },
+                                    'required': ['agent_id']
+                                }
+                            },
+                            {
+                                'name': 'setup_database',
+                                'description': 'Set up database for agent',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'agent_id': {'type': 'string', 'description': 'Agent ID'},
+                                        'schema': {'type': 'object', 'description': 'Database schema'}
+                                    },
+                                    'required': ['agent_id']
+                                }
+                            },
+                            {
+                                'name': 'create_repository',
+                                'description': 'Create GitHub repository for agent',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'name': {'type': 'string', 'description': 'Repository name'},
+                                        'description': {'type': 'string', 'description': 'Repository description'},
+                                        'private': {'type': 'boolean', 'description': 'Make repository private'}
+                                    },
+                                    'required': ['name']
+                                }
+                            },
+                            {
+                                'name': 'get_repository_info',
+                                'description': 'Get information about a repository',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'repo_name': {'type': 'string', 'description': 'Repository name'}
+                                    },
+                                    'required': ['repo_name']
+                                }
+                            },
+                            {
+                                'name': 'create_prd_from_conversation',
+                                'description': 'Extract PRD from OpenAI conversation',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'conversation': {'type': 'string', 'description': 'Conversation text'},
+                                        'agent_type': {'type': 'string', 'description': 'Type of agent'}
+                                    },
+                                    'required': ['conversation', 'agent_type']
+                                }
+                            },
+                            {
+                                'name': 'deliver_prd_to_endcap',
+                                'description': 'Deliver PRD to END_CAP platform',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'prd': {'type': 'object', 'description': 'PRD object'},
+                                        'conversation_id': {'type': 'string', 'description': 'Conversation ID'}
+                                    },
+                                    'required': ['prd']
+                                }
+                            },
+                            {
+                                'name': 'trigger_devin_workflow',
+                                'description': 'Trigger Devin AI workflow for agent creation',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'prd_id': {'type': 'string', 'description': 'PRD ID'},
+                                        'agent_type': {'type': 'string', 'description': 'Agent type'}
+                                    },
+                                    'required': ['prd_id']
+                                }
+                            },
+                            {
+                                'name': 'get_endcap_status',
+                                'description': 'Get END_CAP platform status',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {}
+                                }
+                            }
+                        ]
+                    }
+                }
+            elif method == 'tools/call':
+                tool_name = params.get('name')
+                tool_args = params.get('arguments', {})
+                
+                if tool_name == 'create_agent':
+                    result = await self.create_agent(tool_args)
+                elif tool_name == 'deploy_agent':
+                    result = await self.deploy_agent(tool_args)
+                elif tool_name == 'setup_database':
+                    result = await self.setup_database(tool_args)
+                elif tool_name == 'create_repository':
+                    result = await self.create_repository(tool_args)
+                elif tool_name == 'get_repository_info':
+                    result = await self.get_repository_info(tool_args)
+                elif tool_name == 'create_prd_from_conversation':
+                    result = await self.create_prd_from_conversation(tool_args)
+                elif tool_name == 'deliver_prd_to_endcap':
+                    result = await self.deliver_prd_to_endcap(tool_args)
+                elif tool_name == 'trigger_devin_workflow':
+                    result = await self.trigger_devin_workflow(tool_args)
+                elif tool_name == 'get_endcap_status':
+                    result = await self.get_endcap_status()
+                else:
+                    result = {'error': f'Unknown tool: {tool_name}'}
+                
+                return {
+                    'jsonrpc': '2.0',
+                    'id': request_id,
+                    'result': result
+                }
             else:
                 return {
-                    'error': f'Unknown method: {method}',
-                    'available_methods': [
-                        'create_agent',
-                        'deploy_agent', 
-                        'setup_database',
-                        'create_repository',
-                        'get_repository_info',
-                        'create_prd_from_conversation',
-                        'deliver_prd_to_endcap',
-                        'trigger_devin_workflow',
-                        'get_endcap_status'
-                    ]
+                    'jsonrpc': '2.0',
+                    'id': request_id,
+                    'error': {
+                        'code': -32601,
+                        'message': f'Method not found: {method}'
+                    }
                 }
         except Exception as e:
             logger.error(f"Error handling request: {e}")
-            return {'error': str(e)}
+            return {
+                'jsonrpc': '2.0',
+                'id': request.get('id'),
+                'error': {
+                    'code': -32603,
+                    'message': str(e)
+                }
+            }
     
     async def create_agent(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Create a new agent with all integrations"""
