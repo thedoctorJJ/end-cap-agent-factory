@@ -115,8 +115,10 @@ Please create a complete AI agent implementation and deploy it automatically usi
 Please use your MCP servers to:
 
 **GitHub MCP Server:**
-- Create a new repository: `end-cap-agent-{title.lower().replace(' ', '-')}`
-- Commit the agent code to the repository
+- **Base Repository:** `thedoctorJJ/end-cap-agent-factory` (https://github.com/thedoctorJJ/end-cap-agent-factory)
+- **Create new repository:** `thedoctorJJ/end-cap-agent-{title.lower().replace(' ', '-')}`
+- **Use base repository as template** for structure and configuration
+- Commit the agent code to the new repository
 - Set up proper branch protection and workflows
 
 **Supabase MCP Server:**
