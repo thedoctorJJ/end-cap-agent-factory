@@ -67,6 +67,7 @@ npm run dev
 
 Your END_CAP Agent Factory is **fully configured** and ready for development:
 - ✅ **All APIs configured** (Supabase, OpenAI, Google Cloud, GitHub)
+- ✅ **Devin AI integration** with MCP server setup
 - ✅ **Configuration validated** (15/15 checks passing)
 - ✅ **Development environment ready**
 
@@ -117,13 +118,15 @@ git filter-branch --force --index-filter \
 ## 🏗️ Architecture
 
 ### Backend (FastAPI)
-- **API Endpoints**: `/api/v1/agents`, `/api/v1/prds`, `/api/v1/health`
+- **API Endpoints**: `/api/v1/agents`, `/api/v1/prds`, `/api/v1/health`, `/api/v1/devin`
 - **Models**: Pydantic models for agents and PRDs
 - **Database**: Supabase integration ready
+- **Devin AI Integration**: MCP server for automated deployment
 - **Authentication**: JWT-based auth system
 
 ### Frontend (Next.js 14)
 - **Dashboard**: Agent and PRD management interface
+- **Devin AI Tab**: Copy-paste workflow for agent creation
 - **Components**: shadcn/ui component library
 - **Styling**: Tailwind CSS with dark mode support
 - **State Management**: React hooks and context
@@ -159,11 +162,11 @@ git filter-branch --force --index-filter \
 - [x] **OpenAI integration** - API key validated and working
 - [x] **Google Cloud setup** - Project, APIs, and service account ready
 - [x] **GitHub App configuration** - Repository management ready
+- [x] **Devin AI integration** - MCP server for automated deployment
 
 ### 🚧 In Progress
 - [ ] Voice input processing implementation
-- [ ] GitHub MCP service development
-- [ ] Devin AI orchestration integration
+- [ ] Advanced agent orchestration features
 - [ ] Production deployment to Google Cloud Run
 
 ### 📋 Next Steps
