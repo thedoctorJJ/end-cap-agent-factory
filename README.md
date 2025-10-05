@@ -21,6 +21,7 @@ This repository contains all core infrastructure, libraries, and documentation t
 
 ### 3. Supporting / Visualization
 - [Platform Architecture Diagram](./docs/08-platform-architecture-diagram.md) — full architecture overview, data flow, and component interaction.
+- [Accounts and APIs Setup Guide](./docs/09-accounts-and-apis-setup.md) — complete guide for setting up all required accounts and APIs.
 
 ---
 
@@ -42,6 +43,7 @@ cd end-cap-agent-factory
 ```bash
 cp env.example .env
 # Edit .env with your actual configuration values
+# See SETUP-CHECKLIST.md for detailed account setup
 ```
 
 ### 3. Start Development
@@ -111,11 +113,12 @@ npm run dev
 - [ ] Production deployment
 
 ### 📋 Next Steps
-1. Set up Supabase project and configure database
-2. Implement voice-to-PRD conversion
-3. Build GitHub MCP service for repo creation
-4. Integrate Devin AI for agent orchestration
-5. Deploy to Google Cloud Run
+1. **Set up accounts and APIs** - Follow [SETUP-CHECKLIST.md](./SETUP-CHECKLIST.md)
+2. **Validate configuration** - Run `python scripts/validate-config.py`
+3. Implement voice-to-PRD conversion
+4. Build GitHub MCP service for repo creation
+5. Integrate Devin AI for agent orchestration
+6. Deploy to Google Cloud Run
 
 ## 🔗 Contacts / Contributors
 
