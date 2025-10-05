@@ -166,9 +166,9 @@ Create the following tables in Supabase:
 
 ### 6. **API Endpoints**
 Create FastAPI endpoints:
-- `POST /api/v1/agents/{agent_id}/execute` - Execute agent
-- `GET /api/v1/agents/{agent_id}/status` - Get agent status
-- `GET /api/v1/agents/{agent_id}/metrics` - Get agent metrics
+- `POST /api/v1/agents/{{agent_id}}/execute` - Execute agent
+- `GET /api/v1/agents/{{agent_id}}/status` - Get agent status
+- `GET /api/v1/agents/{{agent_id}}/metrics` - Get agent metrics
 
 ## Expected Outcome
 After completion, the agent should be:
