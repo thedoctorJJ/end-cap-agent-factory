@@ -210,7 +210,14 @@ class EndCapAgentFactoryMCPServer:
                 return {
                     'jsonrpc': '2.0',
                     'id': request_id,
-                    'result': result
+                    'result': {
+                        'content': [
+                            {
+                                'type': 'text',
+                                'text': json.dumps(result, indent=2)
+                            }
+                        ]
+                    }
                 }
             else:
                 return {

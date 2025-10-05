@@ -163,63 +163,103 @@ class SimpleMCPServer:
             arguments = params.get("arguments", {})
             
             if tool_name == "get_endcap_status":
+                status_data = {
+                    "success": True,
+                    "status": "healthy",
+                    "endcap_version": "1.0.0",
+                    "environment": "development",
+                    "message": "END_CAP Agent Factory is running and ready",
+                    "dependencies": {
+                        "requests": REQUESTS_AVAILABLE,
+                        "dotenv": DOTENV_AVAILABLE
+                    }
+                }
                 return {
                     "jsonrpc": "2.0",
                     "id": request_id,
                     "result": {
-                        "success": True,
-                        "status": "healthy",
-                        "endcap_version": "1.0.0",
-                        "environment": "development",
-                        "message": "END_CAP Agent Factory is running and ready",
-                        "dependencies": {
-                            "requests": REQUESTS_AVAILABLE,
-                            "dotenv": DOTENV_AVAILABLE
-                        }
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": json.dumps(status_data, indent=2)
+                            }
+                        ]
                     }
                 }
             
             elif tool_name == "create_agent":
+                result_data = {
+                    "success": True,
+                    "message": f"Agent '{arguments.get('name', 'Unknown')}' created successfully",
+                    "agent_id": "agent_" + str(hash(arguments.get('name', 'default')))
+                }
                 return {
                     "jsonrpc": "2.0",
                     "id": request_id,
                     "result": {
-                        "success": True,
-                        "message": f"Agent '{arguments.get('name', 'Unknown')}' created successfully",
-                        "agent_id": "agent_" + str(hash(arguments.get('name', 'default')))
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": json.dumps(result_data, indent=2)
+                            }
+                        ]
                     }
                 }
             
             elif tool_name == "deploy_agent":
+                result_data = {
+                    "success": True,
+                    "message": f"Agent {arguments.get('agent_id')} deployed successfully",
+                    "deployment_url": f"https://endcap-agent-{arguments.get('agent_id')}.run.app"
+                }
                 return {
                     "jsonrpc": "2.0",
                     "id": request_id,
                     "result": {
-                        "success": True,
-                        "message": f"Agent {arguments.get('agent_id')} deployed successfully",
-                        "deployment_url": f"https://endcap-agent-{arguments.get('agent_id')}.run.app"
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": json.dumps(result_data, indent=2)
+                            }
+                        ]
                     }
                 }
             
             elif tool_name == "create_repository":
+                result_data = {
+                    "success": True,
+                    "message": f"Repository '{arguments.get('name')}' created successfully",
+                    "repository_url": f"https://github.com/thedoctorJJ/{arguments.get('name')}"
+                }
                 return {
                     "jsonrpc": "2.0",
                     "id": request_id,
                     "result": {
-                        "success": True,
-                        "message": f"Repository '{arguments.get('name')}' created successfully",
-                        "repository_url": f"https://github.com/thedoctorJJ/{arguments.get('name')}"
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": json.dumps(result_data, indent=2)
+                            }
+                        ]
                     }
                 }
             
             else:
+                result_data = {
+                    "success": True,
+                    "message": f"Tool '{tool_name}' executed successfully",
+                    "note": "This is a mock response. Full implementation requires external dependencies."
+                }
                 return {
                     "jsonrpc": "2.0",
                     "id": request_id,
                     "result": {
-                        "success": True,
-                        "message": f"Tool '{tool_name}' executed successfully",
-                        "note": "This is a mock response. Full implementation requires external dependencies."
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": json.dumps(result_data, indent=2)
+                            }
+                        ]
                     }
                 }
         
