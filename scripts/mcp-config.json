@@ -1,6 +1,6 @@
 {
   "name": "END_CAP Agent Factory",
-  "description": "Automated agent deployment and integration for END_CAP Agent Factory platform. Handles GitHub repository creation, Supabase database setup, and Google Cloud Run deployment.",
+  "description": "Complete END_CAP Agent Factory integration. Handles OpenAI conversation PRD extraction, GitHub repository creation, Supabase database setup, Google Cloud Run deployment, and Devin AI workflow automation.",
   "icon": "🤖",
   "transport": "stdio",
   "command": "python3",
@@ -8,12 +8,20 @@
   "secrets": {
     "GITHUB_TOKEN": "Your GitHub personal access token",
     "SUPABASE_SERVICE_ROLE_KEY": "Your Supabase service role key", 
-    "GCP_SERVICE_ACCOUNT_KEY": "Your Google Cloud service account key"
+    "GCP_SERVICE_ACCOUNT_KEY": "Your Google Cloud service account key",
+    "GITHUB_ORG_NAME": "GitHub organization name (default: thedoctorJJ)",
+    "OPENAI_API_KEY": "OpenAI API key for ChatGPT integration",
+    "ENDCAP_API_URL": "END_CAP Agent Factory API URL (default: http://localhost:8000)"
   },
   "capabilities": [
     "create_agent",
     "deploy_agent",
     "setup_database", 
-    "create_repository"
+    "create_repository",
+    "get_repository_info",
+    "create_prd_from_conversation",
+    "deliver_prd_to_endcap",
+    "trigger_devin_workflow",
+    "get_endcap_status"
   ]
 }
