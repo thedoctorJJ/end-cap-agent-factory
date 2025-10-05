@@ -1,0 +1,50 @@
+{
+  "project_id": "modular-ai-agent-platform",
+  "name": "Modular AI Agent Platform",
+  "organization_id": "your-org-id",
+  "database": {
+    "host": "db.your-project.supabase.co",
+    "port": 5432,
+    "name": "postgres",
+    "user": "postgres",
+    "password": "your-password"
+  },
+  "api": {
+    "url": "https://your-project.supabase.co",
+    "anon_key": "your-anon-key",
+    "service_role_key": "your-service-role-key"
+  },
+  "auth": {
+    "enabled": true,
+    "providers": ["email", "github"],
+    "redirect_urls": [
+      "http://localhost:3000/auth/callback",
+      "https://your-domain.com/auth/callback"
+    ]
+  },
+  "storage": {
+    "enabled": true,
+    "buckets": [
+      {
+        "name": "prd-documents",
+        "public": false
+      },
+      {
+        "name": "agent-assets",
+        "public": true
+      }
+    ]
+  },
+  "edge_functions": [
+    {
+      "name": "prd-processor",
+      "path": "./edge-functions/prd-processor/index.ts",
+      "triggers": ["prd_created"]
+    },
+    {
+      "name": "github-webhook",
+      "path": "./edge-functions/github-webhook/index.ts",
+      "triggers": ["github_webhook"]
+    }
+  ]
+}

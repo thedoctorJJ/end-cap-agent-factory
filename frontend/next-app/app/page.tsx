@@ -1,0 +1,275 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Badge } from '@/components/ui/badge'
+import { Plus, Bot, FileText, Activity, Github } from 'lucide-react'
+
+interface Agent {
+  id: string
+  name: string
+  description: string
+  purpose: string
+  status: string
+  created_at: string
+}
+
+interface PRD {
+  id: string
+  title: string
+  description: string
+  status: string
+  created_at: string
+}
+
+export default function Dashboard() {
+  const [agents, setAgents] = useState<Agent[]>([])
+  const [prds, setPrds] = useState<PRD[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      const [agentsRes, prdsRes] = await Promise.all([
+        fetch('/api/v1/agents'),
+        fetch('/api/v1/prds')
+      ])
+      
+      if (agentsRes.ok) {
+        const agentsData = await agentsRes.json()
+        setAgents(agentsData)
+      }
+      
+      if (prdsRes.ok) {
+        const prdsData = await prdsRes.json()
+        setPrds(prdsData)
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'active':
+      case 'created':
+        return 'bg-green-100 text-green-800'
+      case 'pending':
+      case 'submitted':
+        return 'bg-yellow-100 text-yellow-800'
+      case 'error':
+      case 'failed':
+        return 'bg-red-100 text-red-800'
+      default:
+        return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <Activity className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p>Loading dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="container mx-auto p-6">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">Modular AI Agent Platform</h1>
+        <p className="text-muted-foreground mt-2">
+          A repeatable, voice-first, AI-driven platform for creating modular agents
+        </p>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Agents</CardTitle>
+            <Bot className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{agents.length}</div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Agents</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {agents.filter(a => a.status === 'active').length}
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">PRDs Submitted</CardTitle>
+            <FileText className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{prds.length}</div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">GitHub Repos</CardTitle>
+            <Github className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {prds.filter(p => p.status === 'completed').length}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Main Content */}
+      <Tabs defaultValue="agents" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="agents">Agents</TabsTrigger>
+          <TabsTrigger value="prds">PRDs</TabsTrigger>
+          <TabsTrigger value="create">Create New</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="agents" className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold">AI Agents</h2>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Agent
+            </Button>
+          </div>
+          
+          <div className="grid gap-4">
+            {agents.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-8">
+                  <Bot className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No agents yet</h3>
+                  <p className="text-muted-foreground text-center mb-4">
+                    Create your first AI agent by submitting a PRD
+                  </p>
+                  <Button>Create First Agent</Button>
+                </CardContent>
+              </Card>
+            ) : (
+              agents.map((agent) => (
+                <Card key={agent.id}>
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="flex items-center gap-2">
+                          {agent.name}
+                          <Badge className={getStatusColor(agent.status)}>
+                            {agent.status}
+                          </Badge>
+                        </CardTitle>
+                        <CardDescription>{agent.description}</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      <strong>Purpose:</strong> {agent.purpose}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Created: {new Date(agent.created_at).toLocaleDateString()}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="prds" className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold">Product Requirements Documents</h2>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Submit PRD
+            </Button>
+          </div>
+          
+          <div className="grid gap-4">
+            {prds.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center py-8">
+                  <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No PRDs yet</h3>
+                  <p className="text-muted-foreground text-center mb-4">
+                    Submit your first PRD to start creating AI agents
+                  </p>
+                  <Button>Submit First PRD</Button>
+                </CardContent>
+              </Card>
+            ) : (
+              prds.map((prd) => (
+                <Card key={prd.id}>
+                  <CardHeader>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <CardTitle className="flex items-center gap-2">
+                          {prd.title}
+                          <Badge className={getStatusColor(prd.status)}>
+                            {prd.status}
+                          </Badge>
+                        </CardTitle>
+                        <CardDescription>{prd.description}</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-xs text-muted-foreground">
+                      Submitted: {new Date(prd.created_at).toLocaleDateString()}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="create" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Create New Agent</CardTitle>
+              <CardDescription>
+                Submit a PRD via voice or text to automatically create AI agents
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Button className="h-20 flex flex-col items-center justify-center">
+                  <Plus className="h-6 w-6 mb-2" />
+                  Voice Input
+                </Button>
+                <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <FileText className="h-6 w-6 mb-2" />
+                  Text Input
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}
