@@ -18,6 +18,7 @@ This repository contains all core infrastructure, libraries, and documentation t
 - [Voice-Driven Workflow Design](./docs/05-voice-driven-workflow.md) — end-to-end PRD creation via voice or text.
 - [UI Integration & Transition Layer](./docs/06-ui-integration.md) — Next.js + shadcn dashboard for monitoring and execution.
 - [GitHub MCP Service](./docs/07-github-mcp-service.md) — automated repository creation for each new PRD.
+- [OpenAI Voice Workflow](./docs/11-openai-voice-workflow.md) — complete voice-to-agent workflow via ChatGPT/OpenAI.
 
 ### 3. Supporting / Visualization
 - [Platform Architecture Diagram](./docs/08-platform-architecture-diagram.md) — full architecture overview, data flow, and component interaction.
@@ -68,12 +69,13 @@ npm run dev
 Your END_CAP Agent Factory is **fully configured** and ready for development:
 - ✅ **All APIs configured** (Supabase, OpenAI, Google Cloud, GitHub)
 - ✅ **Devin AI integration** with MCP server setup
+- ✅ **OpenAI voice workflow** - Create agents through ChatGPT conversations
 - ✅ **GitHub token validated** and working correctly
 - ✅ **MCP server functional** - Creates repositories automatically
 - ✅ **Configuration validated** (15/15 checks passing)
 - ✅ **Development environment ready**
 
-**Start coding immediately** - no additional setup required!
+**Start creating agents through voice conversations** - no additional setup required!
 
 ## 🔒 Security & Credentials Management
 

@@ -1,0 +1,51 @@
+{
+  "name": "END_CAP Agent Factory - OpenAI Integration",
+  "transport_type": "STDIO",
+  "icon": "🤖",
+  "description": "Automatically delivers PRDs from ChatGPT/OpenAI conversations to END_CAP Agent Factory and triggers Devin AI deployment workflow.",
+  "secrets": [
+    {
+      "name": "OPENAI_API_KEY",
+      "description": "OpenAI API key for ChatGPT integration"
+    },
+    {
+      "name": "ENDCAP_API_URL",
+      "description": "END_CAP Agent Factory API URL (default: http://localhost:8000)"
+    }
+  ],
+  "stdio_config": {
+    "command": "python3",
+    "arguments": [
+      "/Users/jason/Repositories/end-cap-agent-factory/scripts/openai-mcp-server.py"
+    ]
+  },
+  "tools": [
+    {
+      "name": "create_prd_from_conversation",
+      "description": "Extract PRD from OpenAI conversation and format for END_CAP",
+      "parameters": {
+        "conversation": "string - The conversation text from ChatGPT/OpenAI",
+        "agent_type": "string - Type of agent (e.g., 'email', 'data', 'content')"
+      }
+    },
+    {
+      "name": "deliver_prd_to_endcap",
+      "description": "Deliver extracted PRD to END_CAP Agent Factory",
+      "parameters": {
+        "prd": "object - The PRD data extracted from conversation"
+      }
+    },
+    {
+      "name": "trigger_devin_workflow",
+      "description": "Trigger Devin AI deployment workflow",
+      "parameters": {
+        "task_id": "string - The task ID from END_CAP"
+      }
+    },
+    {
+      "name": "get_endcap_status",
+      "description": "Check if END_CAP Agent Factory is running and ready",
+      "parameters": {}
+    }
+  ]
+}
