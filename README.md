@@ -23,6 +23,7 @@ This repository contains all core infrastructure, libraries, and documentation t
 ### 3. Supporting / Visualization
 - [Platform Architecture Diagram](./docs/08-platform-architecture-diagram.md) — full architecture overview, data flow, and component interaction.
 - [Accounts and APIs Setup Guide](./docs/09-accounts-and-apis-setup.md) — complete guide for setting up all required accounts and APIs.
+- [MCP Server Setup Guide](./docs/13-mcp-server-setup-guide.md) — step-by-step guide for configuring the OpenAI MCP server in Devin AI.
 
 ---
 

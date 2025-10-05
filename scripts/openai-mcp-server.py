@@ -10,6 +10,7 @@ import os
 import requests
 import logging
 from typing import Dict, Any, List
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -81,6 +82,7 @@ class OpenAIEndCapMCPServer:
             response = requests.post(
                 f'{self.endcap_api_url}/api/v1/devin/tasks',
                 json={
+                    'prd_id': f"openai_{prd_data.get('agent_type', 'general')}_{int(datetime.now().timestamp())}",
                     'title': prd_data.get('title', 'AI Agent'),
                     'description': prd_data.get('description', ''),
                     'requirements': prd_data.get('requirements', [])
