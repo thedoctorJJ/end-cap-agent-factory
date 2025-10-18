@@ -137,6 +137,31 @@ function Dashboard() {
     setActiveTab(defaultTab)
   }, [defaultTab])
 
+  // Lightweight refetch for Agents when the Agents tab is active
+  const refetchAgents = async () => {
+    try {
+      const res = await fetch('/api/v1/agents')
+      if (res.ok) {
+        const data = await res.json()
+        setAgents(data.agents || [])
+      }
+    } catch (error) {
+      console.error('❌ Error refetching agents:', error)
+    }
+  }
+
+  // When switching to the Agents tab, immediately refresh and start polling
+  useEffect(() => {
+    if (activeTab === 'agents') {
+      // Immediate refresh so new agents appear right away
+      refetchAgents()
+
+      // Short polling while Agents tab is active
+      const intervalId = setInterval(refetchAgents, 5000)
+      return () => clearInterval(intervalId)
+    }
+  }, [activeTab])
+
   const fetchData = async () => {
     try {
       console.log('🔄 Starting data fetch...')
